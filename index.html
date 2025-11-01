@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quipster's Strategist | Content Generator</title>
+    <!-- Load Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Embedded Styles (CSS) for the futuristic aesthetic) -->
+     <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen p-4 sm:p-8 flex items-start justify-center">
+
+<div class="w-full max-w-4xl bg-gray-900 futuristic-card rounded-xl p-6 md:p-10 border border-gray-700 interactive-element">
+
+<!-- Header - Typography scales from 4xl to 5xl -->
+<header class="text-center mb-10">
+  <h1 class="text-4xl md:text-5xl font-extrabold text-cyan-400 mb-2 tracking-widest uppercase">
+      <span class="text-indigo-400">QUIPSTER'S</span> STRATEGIST
+  </h1>
+  <p class="text-gray-400 text-lg font-light">Precision-engineered content solutions for your enterprise.</p>
+</header>
+
+<!-- Input Form - Consistent padding, stacks elements vertically -->
+<div id="input-area" class="space-y-6 mb-10 p-8 bg-gray-800 rounded-lg border border-gray-700 shadow-inner">
+  <div>
+      <label for="businessType" class="block text-base font-medium text-gray-300 mb-2">Business Type</label>
+      <!-- w-full ensures it takes up all horizontal space -->
+      <input type="text" id="businessType" placeholder="e.g., Quantum Computing Startup" class="input-style w-full p-3 border rounded-md interactive-element" required>
+  </div>
+
+  <div>
+      <label for="targetTopic" class="block text-base font-medium text-gray-300 mb-2">Target Topic / Goal</label>
+      <input type="text" id="targetTopic" placeholder="e.g., Explaining blockchain security to non-experts" class="input-style w-full p-3 border rounded-md interactive-element" required>
+  </div>
+
+  <div>
+      <label for="contentFormat" class="block text-base font-medium text-gray-300 mb-2">Desired Content Format</label>
+      <select id="contentFormat" class="input-style w-full p-3 border rounded-md interactive-element appearance-none cursor-pointer" required>
+          <option value="Short-form Social Media Video">Short-form Social Media Video (Reels/TikTok)</option>
+          <option value="Detailed Blog Post">Detailed Blog Post / Article</option>
+          <option value="Weekly Email Newsletter">Weekly Email Newsletter Section</option>
+          <option value="Podcast Episode Outline">Podcast Episode Outline</option>
+          <option value="Interactive Quiz/Poll">Interactive Quiz/Poll</option>
+      </select>
+  </div>
+
+  <!-- Button is also w-full and uses responsive padding/text size implicitly -->
+  <button id="generateButton" onclick="generateIdeas()" class="interactive-element w-full flex items-center justify-center px-6 py-4 text-lg font-bold rounded-md text-white shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-500 disabled:opacity-50 disabled:shadow-md" aria-label="Generate content ideas">
+      <!-- Icon representing ideas/brainstorming -->
+      <svg id="buttonIcon" class="w-6 h-6 mr-3 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M18 10h1m-5.636 6.364l.707.707M12 21v-1m-4.636-1.636l-.707-.707M5 10H4m1.636-4.636l-.707-.707M7.879 17.121A7.5 7.5 0 0112 15c2.267 0 4.306.96 5.748 2.532M12 16.5c-4.418 0-8 2-8 4.5v1.5h16v-1.5c0-2.583-3.582-4.5-8-4.5z"></path></svg>
+      GENERATE
+  </button>
+  <div id="errorMessage" class="hidden mt-4 p-4 text-sm font-medium text-red-400 bg-red-900 rounded-lg border border-red-700" role="alert"></div>
+</div>
+
+<!-- Results Area -->
+<div id="results-area" class="p-8 bg-gray-800 rounded-lg border border-gray-700 futuristic-card min-h-[150px]">
+  <h2 class="text-2xl font-bold text-cyan-400 mb-4 border-b pb-2 border-gray-700">Content Ideas</h2>
+  <div id="content-output" class="text-gray-300 space-y-4 prose max-w-none">
+      <p class="text-center text-gray-500 italic">Input parameters above and initiate the generation sequence.</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
