@@ -1,0 +1,26 @@
+{
+  "name": "content-idea-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gen.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vi9-c/Content-Idea-Generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Vi9-c/Content-Idea-Generator/issues"
+  },
+  "homepage": "https://github.com/Vi9-c/Content-Idea-Generator#readme",
+  "dependencies": {
+    "@google/genai": "^1.28.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  }
+}
