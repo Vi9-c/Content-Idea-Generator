@@ -14,14 +14,36 @@ if (!apiKey) {
 
 const ai = new GoogleGenAI(apiKey);
 const app = express();
-const PORT = 3000;
+// server.js
+
+// This checks if the hosting environment (like Render or Vercel) provided a port.
+// If not (i.e., we are running locally), it defaults back to 3000.
+const PORT = process.env.PORT || 3000; 
+
+// ... rest of the file ...
+app.listen(PORT, () => {
+  console.log(`Proxy server running securely on http://localhost:${PORT}`);
+});
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
 // Add CORS headers to allow your client (e.g., your index.html) to talk to the server
 app.use((req, res, next) => {
-  // Replace '*' with your actual domain for production security
+  // Allow the public Render URL AND your local development server
+  const allowedOrigins = [
+    "https://quipster-strategy.onrender.com",
+    "http://127.0.0.1:5500", // <-- ADD THIS LINE
+  ];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    // Fallback for when origin is missing (local file open) or other simple cases
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  }
+
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
