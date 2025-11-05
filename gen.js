@@ -9,18 +9,24 @@ const generateButton = document.getElementById("generateButton");
 const contentOutput = document.getElementById("content-output");
 const errorMessageDiv = document.getElementById("errorMessage");
 
+// --- Helper Functions ---
+
 /**
- * Converts plain text containing a numbered list into an HTML list structure.
- * @param {string} text - The text response from the LLM.
+ * Converts raw Markdown text containing lists, asterisks, and newlines
+ * into a clean, well-formatted HTML list structure.
+ * @param {string} text - The raw text response from the LLM.
  * @returns {string} - The HTML formatted content.
  */
 function formatLLMResponse(text) {
-  // Split the text by newline and filter out empty lines
-  const lines = text.split("\n").filter((line) => line.trim().length > 0);
+  // 1. Clean up common LLM artifacts (like surrounding text with ** or *)
+  let cleanText = text.replace(/\*\*/g, "").replace(/\*/g, "");
 
-  // Map lines to list items, checking for common numbering patterns
+  // 2. Split the text by newline and filter out empty lines
+  const lines = cleanText.split("\n").filter((line) => line.trim().length > 0);
+
+  // 3. Map lines to list items, checking for numbering
   const listItems = lines.map((line) => {
-    // Regex checks for start of line followed by digit(s), dot or bracket, optional space, and then content
+    // Regex checks for start of line followed by digit(s), dot, or bracket
     const match = line.match(/^(\s*\d+\.?\s*[\-\)]?\s*)(.*)/);
     if (match) {
       // Extract the text after the number/bullet point and wrap in list item
@@ -30,14 +36,14 @@ function formatLLMResponse(text) {
     return `<p class="mb-2 text-gray-300">${line.trim()}</p>`;
   });
 
-  // If we have multiple list items, wrap them in a proper <ol>
+  // 4. Wrap the list items in a proper <ol> tag
   if (
     listItems.length > 1 &&
     listItems.every((item) => item.startsWith("<li"))
   ) {
     return `<ol class="space-y-4 pl-0">${listItems.join("")}</ol>`;
   } else {
-    // Otherwise, join them as paragraphs (this handles non-list responses gracefully)
+    // Otherwise, return as paragraphs
     return listItems.join("");
   }
 }
@@ -75,10 +81,6 @@ async function withRetry(fn, maxRetries = 3) {
     }
   }
 }
-
-/**
- * Handles the content generation process.
- */
 
 // --- Main Execution Function (Defined correctly to be called by HTML) ---
 
@@ -122,9 +124,7 @@ async function generateIdeas() {
     if (!response.ok) {
       // The server (Node.js) returned an HTTP error
       const errorData = await response.json();
-      throw new Error(
-        `Proxy error: ${errorData.error || response.statusText}`
-      );
+      throw new Error(`Proxy error: ${errorData.error || response.statusText}`);
     }
 
     const result = await response.json();
