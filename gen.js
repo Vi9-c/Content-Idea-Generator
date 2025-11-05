@@ -1,5 +1,5 @@
 // Global variables for API configuration
-const proxyUrl = "http://localhost:3000/generate-ideas";
+const proxyUrl = "https://quipster-strategy.onrender.com/generate-ideas";
 
 // DOM Elements
 const businessTypeInput = document.getElementById("businessType");
