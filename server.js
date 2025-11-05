@@ -27,6 +27,10 @@ app.listen(PORT, () => {
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+// Route to handle the root path (/)
+app.get('/', (req, res) => {
+    res.status(200).send("Quipster's Strategy API Proxy is running. Use the /generate-ideas POST endpoint.");
+});
 
 // Add CORS headers to allow your client (e.g., your index.html) to talk to the server
 app.use((req, res, next) => {
