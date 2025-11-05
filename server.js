@@ -27,10 +27,13 @@ app.listen(PORT, () => {
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+<<<<<<< HEAD
 // Route to handle the root path (/)
 app.get('/', (req, res) => {
     res.status(200).send("Quipster's Strategy API Proxy is running. Use the /generate-ideas POST endpoint.");
 });
+=======
+>>>>>>> 1553e3d47f7f61c425bf4c6cf68d481b6ce99018
 
 // Add CORS headers to allow your client (e.g., your index.html) to talk to the server
 app.use((req, res, next) => {
@@ -95,4 +98,8 @@ app.post('/generate-ideas', async (req, res) => {
         // Send a generic error message to the client, hiding technical details
         res.status(500).json({ error: "Server processing failed. Please try again." });
     }
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 1553e3d47f7f61c425bf4c6cf68d481b6ce99018

@@ -189,7 +189,13 @@ async function generateIdeas() {
     if (!response.ok) {
       // The server (Node.js) returned an HTTP error
       const errorData = await response.json();
+<<<<<<< HEAD
       throw new Error(`Proxy error: ${errorData.error || response.statusText}`);
+=======
+      throw new Error(
+        `Proxy error: ${errorData.error || response.statusText}`
+      );
+>>>>>>> 1553e3d47f7f61c425bf4c6cf68d481b6ce99018
     }
 
     const result = await response.json();
