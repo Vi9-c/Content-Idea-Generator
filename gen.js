@@ -78,74 +78,7 @@ async function withRetry(fn, maxRetries = 3) {
 
 /**
  * Handles the content generation process.
-// --- Helper Functions (formatLLMResponse, displayError, clearError, withRetry) ---
-
-/**
- * Converts plain text containing a numbered list into an HTML list structure.
- * @param {string} text - The text response from the LLM.
- * @returns {string} - The HTML formatted content.
  */
-function formatLLMResponse(text) {
-  // Split the text by newline and filter out empty lines
-  const lines = text.split("\n").filter((line) => line.trim().length > 0);
-
-  // Map lines to list items, checking for common numbering patterns
-  const listItems = lines.map((line) => {
-    // Regex checks for start of line followed by digit(s), dot or bracket, optional space, and then content
-    const match = line.match(/^(\s*\d+\.?\s*[\-\)]?\s*)(.*)/);
-    if (match) {
-      // Extract the text after the number/bullet point and wrap in list item
-      return `<li class="text-base leading-relaxed">${match[2].trim()}</li>`;
-    }
-    // If it doesn't look like a list item, just treat it as a paragraph
-    return `<p class="mb-2 text-gray-300">${line.trim()}</p>`;
-  });
-
-  // If we have multiple list items, wrap them in a proper <ol>
-  if (
-    listItems.length > 1 &&
-    listItems.every((item) => item.startsWith("<li"))
-  ) {
-    return `<ol class="space-y-4 pl-0">${listItems.join("")}</ol>`;
-  } else {
-    // Otherwise, join them as paragraphs (this handles non-list responses gracefully)
-    return listItems.join("");
-  }
-}
-
-/**
- * Shows an error message in the dedicated area.
- * @param {string} message - The error message to display.
- */
-function displayError(message) {
-  errorMessageDiv.innerHTML = `<p>${message}</p>`;
-  errorMessageDiv.classList.remove("hidden");
-}
-
-/**
- * Clears the error message area.
- */
-function clearError() {
-  errorMessageDiv.textContent = "";
-  errorMessageDiv.classList.add("hidden");
-}
-
-/**
- * Implements exponential backoff for retries. (Keeping this function, though currently unused)
- * @param {function} fn - The function to retry.
- * @param {number} maxRetries - Maximum number of retries.
- */
-async function withRetry(fn, maxRetries = 3) {
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      return await fn();
-    } catch (error) {
-      if (attempt === maxRetries - 1) throw error;
-      const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
-  }
-}
 
 // --- Main Execution Function (Defined correctly to be called by HTML) ---
 
@@ -189,13 +122,9 @@ async function generateIdeas() {
     if (!response.ok) {
       // The server (Node.js) returned an HTTP error
       const errorData = await response.json();
-<<<<<<< HEAD
-      throw new Error(`Proxy error: ${errorData.error || response.statusText}`);
-=======
       throw new Error(
         `Proxy error: ${errorData.error || response.statusText}`
       );
->>>>>>> 1553e3d47f7f61c425bf4c6cf68d481b6ce99018
     }
 
     const result = await response.json();
